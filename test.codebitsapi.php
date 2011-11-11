@@ -1,5 +1,12 @@
 <?php
 require_once 'TestAPI.php';
-$test = new TextAPI();
-$test->init();
+require_once 'NetworkGraph.php';
+require_once 'class.database.php';
+//$test = new TextAPI();
+//$test->init();
+$testdb = new CodeBitsDatabase();
+$testdb->clear();
+$test = new NetworkGraph($testdb);
+$test->createGraph();
+//$test->createGraphFromDB();
 ?>
