@@ -22,15 +22,26 @@ margin: 0;
 	.height(h)
 	.fillStyle("white")
 	.event("mousedown", pv.Behavior.pan())
-	.event("mousewheel", pv.Behavior.zoom());
-
+	.event("mousewheel", pv.Behavior.zoom(1.2));
+        pv.Behavior.zoom(1);
 	var force = vis.add(pv.Layout.Force)
 	.nodes([
-		{ coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:3 },
-		{ coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:20 }
+		{ coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
+                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
+		{ coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 },
+                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
+                { coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 },
+                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
+                { coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 }
 			])
 	.links([
-		{ source:1, target:0, value:1 }
+		{ source:1, target:0, value:1 },
+                { source:1, target:3, value:1 },
+                { source:2, target:1, value:1 },
+                { source:4, target:0, value:1 },
+                { source:5, target:4, value:1 },
+                { source:5, target:2, value:1 },
+                { source:6, target:3, value:1 }
 			]);
 
 	force.link.add(pv.Line);
