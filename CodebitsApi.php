@@ -35,8 +35,7 @@ class CodebitsApiUtils {
         $ret = array();
         if(is_array($jfriends)){
             foreach ($jfriends as $key => $value) {
-                $user = $this->getUser($value['id']);
-                $ret[$value['name']]=$user;
+                $ret[$value['name']]=$value['id'];
             }
         }
         return $ret;
@@ -48,8 +47,7 @@ class CodebitsApiUtils {
         $jfriends = json_decode($friends,true);
         if(is_array($jfriends)){
             foreach ($jfriends as $key => $value) {
-                $user = $this->getUser($value['id']);
-                $this->friends[$value['name']] = $user;
+                $this->friends[$value['name']] = $value['id'];
             }
         }
         return $this->friends;

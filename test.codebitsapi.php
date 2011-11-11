@@ -5,8 +5,8 @@ require_once 'class.database.php';
 //$test = new TextAPI();
 //$test->init();
 $testdb = new CodeBitsDatabase();
-$testdb->clear();
+//$testdb->clear();
 $test = new NetworkGraph($testdb);
-$test->createGraph();
-//$test->createGraphFromDB();
+//$test->createGraph();
+$test->createGraphFromDB();
 ?>

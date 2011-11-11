@@ -41,18 +41,14 @@ class CodeBitsDatabase {
         }
         
         public function getFriends($user){
-           $statement ="SELECT * FROM Friends inner join User on User.id = Friends.user1 where user1=".$this->db->escapeString($user)." or user2=".$this->db->escapeString($user);
+           $statement ="SELECT Users.* FROM Friends inner join Users on Users.id = Friends.user1 where Friends.user1 !=".$this->db->escapeString($user)." and Friends.user2=".$this->db->escapeString($user);
            $query = $this->db->query($statement);
-           $all = $this->fetchAll($query);
-           $ret = array();
-           foreach ($all as $key => $value) {
-               if($value['user1']!=$user){
-                   $ret[]=$value['user1'];
-               }else{
-                   $ret[]=$value['user2'];
-               }
-           }
-           return $ret;
+           $ret = $this->fetchAll($query);
+           $statement ="SELECT Users.* FROM Friends inner join Users on Users.id = Friends.user2 where Friends.user2 !=".$this->db->escapeString($user)." and Friends.user1=".$this->db->escapeString($user);
+           $query = $this->db->query($statement);
+           $ret_ = $this->fetchAll($query);
+           
+           return array_merge($ret,$ret_);
         }
 
 
