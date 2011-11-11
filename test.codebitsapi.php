@@ -1,6 +1,5 @@
 <?php
-    require_once 'CodebitsApi.php';
-    $capi = new CodebitsApiUtils('eriksson.monteiro@ua.pt', '');
-    $friends = $capi->getFriends();
-   
+require_once 'TestAPI.php';
+$test = new TextAPI();
+$test->init();
 ?>

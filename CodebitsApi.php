@@ -19,13 +19,34 @@ class CodebitsApiUtils {
         $json_decode = json_decode($ret,true);
         $this->uid = $json_decode['uid'];
         $this->token = $json_decode['token'];
+        echo $this->token.".\n";
+        echo $this->uid.".\n";
     }
     
-    public function getFriends(){
-        $friends = $this->getUrl('https://services.sapo.pt/Codebits/foaf/'.$this->uid."?token=".$this->token);
+    public function getUID(){
+        return $this->uid;
+    }
+    
+    public function getFriendOfFriend($friendid){
+        $friends = $this->getUrl('https://services.sapo.pt/Codebits/foaf/'.$friendid.'?token='.$this->token);
         $jfriends = json_decode($friends,true);
-        foreach ($jfriends as $key => $value) {
-            array_push($this->friends, array($value['name']=>$value['id']));
+        $ret = array();
+        if(is_array($jfriends)){
+            foreach ($jfriends as $key => $value) {
+                $ret[$value['name']]=$value['id'];
+            }
+        }
+        return $ret;
+    }
+
+
+    public function getFriends(){
+        $friends = $this->getUrl('https://services.sapo.pt/Codebits/foaf/'.$this->uid.'?token='.$this->token);
+        $jfriends = json_decode($friends,true);
+        if(is_array($jfriends)){
+            foreach ($jfriends as $key => $value) {
+                $this->friends[$value['name']] = $value['id'];
+            }
         }
         return $this->friends;
     }   
