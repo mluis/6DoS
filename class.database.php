@@ -10,12 +10,14 @@ class CodeBitsDatabase {
 	}
         
 
-	public function addUser($id,$name) {
-		$statement = "INSERT INTO Users (id, name) VALUES ("
-			. "'" . $this->db->escapeString($id) . "',"
-			. "'" . $this->db->escapeString($name) . "'"
+	public function addUser($values,$name) {
+		$statement = "INSERT INTO Users (id, name, url, karma) VALUES ("
+			. "'" . $this->db->escapeString($values['id']) . "',"
+			. "'" . $this->db->escapeString($name) . "',"
+                        . "'" . $this->db->escapeString($values['avatar']) . "',"
+                        . "'" . $this->db->escapeString($values['karma']) . "'"
 			. ")";
-                
+                       
                 return $this->db->exec($statement);
 	}
 
@@ -79,7 +81,7 @@ class CodeBitsDatabase {
 				. 'id INTEGER PRIMARY KEY NOT NULL,'
 				. 'name VARCHAR NOT NULL,'
                                 . 'url VARCHAR NOT NULL,'
-                                . 'karma INTEGER NOT NULL'
+                                . 'karma VARCHAR NOT NULL'
 				. ')';
                 
 		$this->db->exec($statement);

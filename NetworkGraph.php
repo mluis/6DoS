@@ -24,13 +24,13 @@ class NetworkGraph{
         echo "start .\n";
         $friends = $this->cbapi->getFriendOfFriend(1);
         $this->graph[1]=array_values($friends);
-        $this->db->addUser(1,'Celso Martinho');
+        $this->db->addUser($this->cbapi->getUser(1) ,'Celso Martinho');
         array_push($this->onbd,1);
         
         foreach ($friends as $key => $value) {
             
-            if(!in_array($value['id'], $this->onbd)){
-                $this->db->addUser($value['id'], $key);
+            if( !in_array($value['id'], $this->onbd)){
+                $this->db->addUser($value, $key);
             }
             $array_keys = array_keys($this->graph);
             if(!in_array($value['id'], $array_keys)){
@@ -55,7 +55,7 @@ class NetworkGraph{
         $this->graph[$user] = array_values($friends);
         foreach ($friends as $key => $val){
             if(!in_array($val['id'], $this->onbd)){
-                $this->db->addUser($val['id'], $key);
+                $this->db->addUser($val, $key);
             }
             
             $array_keys = array_keys($this->graph);
