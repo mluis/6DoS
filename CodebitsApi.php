@@ -10,15 +10,17 @@ class CodebitsApiUtils {
     public function __construct($u, $p) {
         $this->username = $u;
         $this->password = $p;
-        $this->login($u,$p);
-        
     }
     
-    private function login($user, $pwd){
-        $ret =  $this->getUrl('https://services.sapo.pt/Codebits/gettoken?user='.$user.'&password='.$pwd);
+    public function login(){
+        $ret =  $this->getUrl('https://services.sapo.pt/Codebits/gettoken?user='.$this->username.'&password='.$this->password);
         $json_decode = json_decode($ret,true);
+        if(!isset ($json_decode['token'])){
+            return false;
+        }
         $this->uid = $json_decode['uid'];
         $this->token = $json_decode['token'];
+        return true;
     }
     
     public function getUID(){

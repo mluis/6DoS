@@ -1,13 +1,15 @@
 <?php
 require_once 'class.database.php';
 class NetworkGraph{
-    private $graph = array();
+    private static $graph = array();
     private $cbapi;
     private $db;
     private $onbd = array();
-    public function __construct(CodeBitsDatabase $codebitsdb) {
-        $this->cbapi = new CodebitsApiUtils('eriksson.monteiro@ua.pt', 'mon9teiro');
+    public function __construct(CodeBitsDatabase $codebitsdb, $fromdb = false) {
         $this->db = $codebitsdb;
+        if($fromdb){
+            $this->createGraphFromDB();
+        }
     }
     private $checked = array();
     private $tocheck = array();
@@ -16,6 +18,12 @@ class NetworkGraph{
     public function  getUser($userid){
         return $this->cbapi->getUser($userid);
     }
+
+    public function login($user,$password){
+        $this->cbapi = new CodebitsApiUtils($user, $password);
+        return $this->cbapi->login();
+    }
+
 
     public function getPath($username1, $username2){
         $this->checked = array();
