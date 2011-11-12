@@ -26,12 +26,14 @@ and open the template in the editor.
         $db = new CodeBitsDatabase();
         $graph = new NetworkGraph($db,true);
         $_SESSION['NetworkGraph']=$graph;
+    }else{
+        $graph=$_SESSION['NetworkGraph'];
     }
     if(isset ($_GET['error'])){
         echo 'alert("'.$_GET['error'].'");';
     }
     ?>
-        <form id="myForm" action="iface.php?first=Eriksson Monteiro&second=Celso Martinho" method="post"> 
+        <form id="myForm" action="iface.php" method="post"> 
                 <table>
                     <tr>
                         <td><label style="color: white">Name</label></td>
@@ -45,8 +47,13 @@ and open the template in the editor.
                         <td></td>
                         <td><input type="submit" value="login"/> </td>
                     </tr>
+                    <tr>
+                        <td><input style="visibility: hidden" type="input" name="first" id="first"></input></td>
+                    </tr>
+                    <tr>
+                        <td><input style="visibility: hidden" type="input" name="second" id="second"></input></td>
+                    </tr>
                 </table>
             </form>
-        </div>
     </body>
 </html>

@@ -16,7 +16,7 @@ background-repeat:no-repeat;
 <body>
 
 
-    <form id="frm" target="iface.php" method="get">
+    <form id="frm" target="iface.php" method="post">
         <table>
             <tr><label style="color: white">Select Users</lable></tr>
             <tr>
@@ -55,12 +55,12 @@ background-repeat:no-repeat;
             return;
         }
     }
-    if(isset ($_GET['first']) && isset ($_GET['second'])){
-       $path = $graph->getPath($_GET['first'], $_GET['second']);
+    if(isset ($_POST['first']) && isset ($_POST['second'])){
+       echo $_POST['first'];
+       echo $_POST['second'];
+       $path = $graph->getPath($_POST['first'], $_POST['second']);
        echo $graph->getGraph($path);
     }else{
-        $path = $graph->getPath("Eriksson Monteiro", "Nuno Polónia");
-        echo $test->getGraph($path);
         echo 'alert("bad parameters!")';
     }
 ?>   
