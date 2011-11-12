@@ -9,4 +9,7 @@ $testdb = new CodeBitsDatabase();
 $test = new NetworkGraph($testdb);
 //$test->createGraph();
 $test->createGraphFromDB();
+
+$path = $test->getPath("Eriksson Monteiro", "Nuno Polónia");
+echo $test->getGraph($path);
 ?>

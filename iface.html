@@ -2,6 +2,7 @@
 <head>
 <title>Force-Directed Layout</title>
 <script type="text/javascript" src="http://mbostock.github.com/protovis/protovis-r3.2.js"></script>
+<script type="text/javascript" src="graph.js"></script>
 <style type="text/css">
 
 body {
@@ -25,26 +26,10 @@ margin: 0;
 	.event("mousewheel", pv.Behavior.zoom(1.2));
         pv.Behavior.zoom(1);
 	var force = vis.add(pv.Layout.Force)
-	.nodes([
-		{ coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
-                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
-		{ coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 },
-                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
-                { coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 },
-                { coder:"prata", url:"https://codebits.eu/bots/505122804c6cb1d7c10972b33f6a81f8", friends:1 },
-                { coder:"erik", url:"https://codebits.eu/bots/b2487b4638c9880c688579b52d609565", friends:1 }
-			])
-	.links([
-		{ source:1, target:0, value:1 },
-                { source:1, target:3, value:1 },
-                { source:2, target:1, value:1 },
-                { source:4, target:0, value:1 },
-                { source:5, target:4, value:1 },
-                { source:5, target:2, value:1 },
-                { source:6, target:3, value:1 }
-			]);
-
-	force.link.add(pv.Line);
+	.nodes(miserables.nodes)
+	.links(miserables.links);
+        
+        force.link.add(pv.Line);
 
 	/*force.node.add(pv.Dot)
 	.size(function(d) (d.linkDegree + 4) * Math.pow(this.scale, -1.5))
@@ -57,8 +42,8 @@ margin: 0;
 
 	force.node.add(pv.Image)
 	.url(function(n) n.url)
-	.width(function(n) n.friends * 10)
-	.height(function(n) n.friends * 10)
+	.width(function(n)(n.friends < 10)? n.friends * 1.5 : n.friends * 0.5)
+	.height(function(n)(n.friends < 10)? n.friends * 1.5 : n.friends * 0.5)
 	.event("mousedown", pv.Behavior.drag())
 	.event("drag", force);
 

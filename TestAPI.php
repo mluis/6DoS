@@ -6,7 +6,7 @@ class TextAPI {
 
     private $cbapi;
     private $checked = array();
-    private $theman = 'Eriksson Monteiro';
+    private $theman = 'Celso Martinho';
     private $tocheck = array();
     private $friends = array();
 
