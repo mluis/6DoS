@@ -49,8 +49,9 @@ background-repeat:no-repeat;
     }
     
     $graph=$_SESSION['NetworkGraph'];
+    
     if(!$graph->isLogged()){
-        if(!$graph->login($_POST['name'], $_POST['password'])){
+        if(!$graph->login("eriksson.monteiro@ua.pt", "mon9teiro")){
             header("Location: login.php?error=login");
             return;
         }
@@ -61,6 +62,7 @@ background-repeat:no-repeat;
     }else{
         echo 'alert("bad parameters!")';
     }
+    $_SESSION['NetworkGraph']=$graph;
 ?>   
 	var w = document.body.clientWidth,
 	h = document.body.clientHeight,
