@@ -2,7 +2,6 @@
 <head>
 <title>Force-Directed Layout</title>
 <script type="text/javascript" src="http://mbostock.github.com/protovis/protovis-r3.2.js"></script>
-<script type="text/javascript" src="graph.js"></script>
 <style type="text/css">
 
 body {
@@ -10,10 +9,35 @@ background-image:url('image/armyofbots.jpg');
 background-repeat:no-repeat;
 }
 
+
+
 </style>
 </head>
 <body>
-<?php
+
+
+    <form id="frm" target="iface.php" method="get">
+        <table>
+            <tr><label style="color: white">Select Users</lable></tr>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td><label style="color: white">First User</lable></td>
+                            <td><input type="input" name="first" id="first"></input></td>
+                        </tr>
+                        <tr>
+                            <td><label style="color: white">Second User</lable></td>
+                            <td><input type="input" name="second" id="second"></input></td>
+                        </tr>
+                        <tr><td><input type="submit" value="Get graph!"/></td></tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
+<script type="text/javascript+protovis">
+ <?php
     require_once 'CodebitsApi.php';
     require_once 'NetworkGraph.php';
     require_once 'class.database.php';
@@ -25,37 +49,21 @@ background-repeat:no-repeat;
     }
     
     $graph=$_SESSION['NetworkGraph'];
-    
-    if(!isset ($_POST['name']) || !isset ($_POST['password'])){
-        header("Location: login.php?error=parametros errados");
-        return;
+    if(!$graph->isLogged()){
+        if(!$graph->login($_POST['name'], $_POST['password'])){
+            header("Location: login.php?error=login");
+            return;
+        }
     }
-    if(!$graph->login($_POST['name'], $_POST['password'])){
-        header("Location: login.php?error=login");
+    if(isset ($_GET['first']) && isset ($_GET['second'])){
+       $path = $graph->getPath($_GET['first'], $_GET['second']);
+       echo $graph->getGraph($path);
+    }else{
+        $path = $graph->getPath("Eriksson Monteiro", "Nuno Polónia");
+        echo $test->getGraph($path);
+        echo 'alert("bad parameters!")';
     }
-    
-?>
-
-<table>
-    <tr><label style="color: white">Select Users</lable></tr>
-    <tr>
-        <td>
-            <table>
-                <tr>
-                    <td><label style="color: white">First User</lable></td>
-                    <td><input type="input" name="first" id="first"></input></td>
-                </tr>
-                <tr>
-                    <td><label style="color: white">Second User</lable></td>
-                    <td><input type="input" name="second" id="second"></input></td>
-                </tr>
-                <tr><td><input type="submit" value="Get graph!"/></td></tr>
-            </table>
-        </td>
-    </tr>
-</table>
-<script type="text/javascript+protovis">
-    
+?>   
 	var w = document.body.clientWidth,
 	h = document.body.clientHeight,
 	colors = pv.Colors.category19();

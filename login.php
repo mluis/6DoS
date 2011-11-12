@@ -31,7 +31,7 @@ and open the template in the editor.
         echo 'alert("'.$_GET['error'].'");';
     }
     ?>
-        <form id="myForm" action="iface.php" method="post"> 
+        <form id="myForm" action="iface.php?first=Eriksson Monteiro&second=Celso Martinho" method="post"> 
                 <table>
                     <tr>
                         <td><label style="color: white">Name</label></td>

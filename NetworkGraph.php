@@ -15,13 +15,22 @@ class NetworkGraph{
     private $tocheck = array();
     private $friends = array();
     private $par = array();
+    private $logged = false;
+    public function getGdata(){
+        return $this->graph;
+    }
+    public function isLogged(){
+        return $this->logged;
+    }
+    
     public function  getUser($userid){
         return $this->cbapi->getUser($userid);
     }
 
     public function login($user,$password){
         $this->cbapi = new CodebitsApiUtils($user, $password);
-        return $this->cbapi->login();
+        $this->logged = $this->cbapi->login();
+        return $this->logged;
     }
 
 
