@@ -56,8 +56,6 @@ background-repeat:no-repeat;
         }
     }
     if(isset ($_POST['first']) && isset ($_POST['second'])){
-       echo $_POST['first'];
-       echo $_POST['second'];
        $path = $graph->getPath($_POST['first'], $_POST['second']);
        echo $graph->getGraph($path);
     }else{

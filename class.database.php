@@ -1,11 +1,9 @@
 <?PHP
-define('__ROOT__', dirname(dirname(__FILE__)));
-
 class CodeBitsDatabase {
 	private $db;
 
 	function __construct() {
-		$this->db = new SQlite3(__ROOT__.'/configs.sqlite3', 0666);
+		$this->db = new SQlite3('configs.sqlite3', 0666);
                 $this->createTables();
 	}
         
